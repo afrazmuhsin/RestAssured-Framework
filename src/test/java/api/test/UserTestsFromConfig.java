@@ -1,7 +1,6 @@
 package api.test;
 
 import api.endpoints.UserEndPoints;
-import api.endpoints.UserEndPointsFromConfig;
 import api.payload.User;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
@@ -11,7 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class UserTests {
+public class UserTestsFromConfig {
 
     Faker faker = new Faker();
     User userPayload = new User();
@@ -32,10 +31,10 @@ public class UserTests {
     }
 
     @Test(priority = 0)
-    public void testPostUser() {
+    public void testPostUser1() {
         logger.info("******** Creating User ************");
         userPayload.setUsername(faker.name().username());
-        Response response = UserEndPointsFromConfig.createUser(userPayload);
+        Response response = UserEndPoints.createUser(userPayload);
         System.out.println("--------" + response.getBody().print());
         System.out.println("UserName--: " + userPayload.getUsername());
         Assert.assertEquals(response.getStatusCode(), 200);
@@ -43,20 +42,20 @@ public class UserTests {
     }
 
     @Test(priority = 1)
-    public void testGetUserByName() {
+    public void testGetUserByName1() {
         logger.info("******** Getting User Details ************" +  this.userPayload.getUsername());
         setupData();
-        Response response = UserEndPointsFromConfig.readUser(this.userPayload.getUsername());
+        Response response = UserEndPoints.readUser(this.userPayload.getUsername());
         response.then().log().all();
         Assert.assertEquals(response.getStatusCode(), 200);
         logger.info("******** Getting User Details Completed************");
     }
 
     @Test(priority = 2)
-    public void testPutUserByName() {
+    public void testPutUserByName1() {
         logger.info("******** Updating User Details ************" +  this.userPayload.getUsername());
         setupData();
-        Response response = UserEndPointsFromConfig.updateUser("update.username", this.userPayload);
+        Response response = UserEndPoints.updateUser("update.username", this.userPayload);
         Assert.assertEquals(200, response.getStatusCode());
         Response responseGet = UserEndPoints.readUser("update.username");
         Assert.assertEquals(200, response.getStatusCode());
@@ -64,9 +63,9 @@ public class UserTests {
     }
 
     @Test(priority = 3)
-    public void testDeleteUserByName() {
+    public void testDeleteUserByName1() {
         logger.info("******** Deleting User Details ************");
-        Response response = UserEndPointsFromConfig.deleteUser(this.userPayload.getUsername());
+        Response response = UserEndPoints.deleteUser(this.userPayload.getUsername());
         response.then().log().all();
         Assert.assertEquals(200, response.getStatusCode());
         logger.info("******** Deleted User Details Completed ************");

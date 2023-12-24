@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Pet-Suite">
+    <listeners>
+        <listener class-name="api.utilities.ExtentReportManager"/>
+    </listeners>
+    <test verbose="2" preserve-order="true" name="/Users/MuhsinKamal/Documents/MuhsinProjects/rest-assured-framework">
+        <classes>
+            <class name="api.test.UserTestsFromConfig">
+                <methods>
+                    <include name="testPostUser1"/>
+                    <include name="testGetUserByName1"/>
+                    <include name="testPutUserByName1"/>
+                    <include name="testDeleteUserByName1"/>
+                </methods>
+            </class>
+            <class name="api.test.UserTests">
+                <methods>
+                    <include name="testPostUser"/>
+                    <include name="testGetUserByName"/>
+                    <include name="testPutUserByName"/>
+                    <include name="testDeleteUserByName"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
